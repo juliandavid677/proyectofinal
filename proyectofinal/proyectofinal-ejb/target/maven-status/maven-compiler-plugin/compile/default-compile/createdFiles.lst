@@ -1,0 +1,7 @@
+com\mycompany\entity\Usuario.class
+com\mycompany\interfaces\IUsuarioFacade.class
+com\mycompany\consultas\UsuarioConsultas.class
+com\mycompany\beans\AbstractFacade.class
+com\mycompany\beans\UsuarioFacade.class
+com\mycompany\DTO\DTO_Usuario.class
+com\mycompany\entity\Usuario_.class
