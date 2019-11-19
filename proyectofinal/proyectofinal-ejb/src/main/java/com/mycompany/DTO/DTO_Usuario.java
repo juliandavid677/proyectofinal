@@ -24,12 +24,15 @@ public class DTO_Usuario implements Serializable{
     public DTO_Usuario() {
     }
 
-    public DTO_Usuario(String nombre, String correo, String clave) {
+    public DTO_Usuario(int idUsuario, String nombre, String correo, String clave) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.correo = correo;
         this.clave = clave;
     }
-
+    
+    
+    
     public int getIdUsuario() {
         return idUsuario;
     }

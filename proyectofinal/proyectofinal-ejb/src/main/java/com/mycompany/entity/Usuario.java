@@ -22,13 +22,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="usuario")
 @NamedQueries({
-    @NamedQuery(name = "consulta", query = "SELECT u FROM Usuario u  WHERE u.correo = :correo AND u.clave = :clave")
+    @NamedQuery(name = "consulta", query = "SELECT u FROM Usuario u  WHERE u.correo = :correo AND u.clave = :clave"),
+    @NamedQuery(name = "correoigual", query = "SELECT u FROM Usuario u  WHERE u.correo = :correo "),
+    @NamedQuery(name = "claveigual", query = "SELECT u FROM Usuario u  WHERE u.clave = :clave ")
 })
+
 public class Usuario implements Serializable{
     
-    @Id   
+    @Id       
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)   
     @Column(name = "id_usuario")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)    
     private int idUsuario;
     
     @Column

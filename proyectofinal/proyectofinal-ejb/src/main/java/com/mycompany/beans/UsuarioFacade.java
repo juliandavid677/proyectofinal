@@ -50,7 +50,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements IUsuarioFa
             List<Usuario> listUsuario = consulta.getResultList();
             if(!listUsuario.isEmpty()){
                 usuario = listUsuario.get(0);
-                usuarioDto = new DTO_Usuario(usuario.getNombre(), usuario.getCorreo(), usuario.getClave());
+                usuarioDto = new DTO_Usuario(usuario.getIdUsuario(),usuario.getNombre(), usuario.getCorreo(), usuario.getClave());
             }
         } catch (Exception e) {
             throw e;
@@ -59,5 +59,49 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements IUsuarioFa
         return usuarioDto;
          
     }
+    
+    /**
+     *
+     * @param correo
+     * @return
+     */
+    @Override
+    public DTO_Usuario validaCorreo(String correo){
+        DTO_Usuario usuarioDto = null;
+        Usuario usuario = null;
+        try {
+            TypedQuery<Usuario> consulta = em.createNamedQuery("correoigual", Usuario.class);
+            consulta.setParameter("correo", correo);
+            List<Usuario> listUsuario = consulta.getResultList();
+            if(!listUsuario.isEmpty()){
+                usuario = listUsuario.get(0);
+                usuarioDto = new DTO_Usuario(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getClave());
+            }
+        } catch (Exception e) {
+            
+        }
+        return usuarioDto;
+    }
+    
+    @Override
+    public DTO_Usuario claveIgual(String clave){
+        DTO_Usuario usuarioDto = null;
+        Usuario usuario = null;
+        try {
+            TypedQuery<Usuario> consulta = em.createNamedQuery("claveigual", Usuario.class);
+            consulta.setParameter("clave", clave);
+            List<Usuario> listUsuario = consulta.getResultList();
+            if(!listUsuario.isEmpty()){
+                usuario = listUsuario.get(0);
+                usuarioDto = new DTO_Usuario(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getClave());
+            }
+        } catch (Exception e) {
+            
+        }
+        return usuarioDto;
+    }
+    
+   
+    
     
 }

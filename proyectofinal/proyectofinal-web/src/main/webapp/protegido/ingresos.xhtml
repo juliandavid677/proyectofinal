@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/newTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="formingreso">
+                    <p:growl id="growlingreso" showDetail="true"></p:growl>
+                    <p:panel id="panelingreso" style="text-align: center">
+
+                        <h3>Crear nuevo Ingreso</h3>
+                        <h:panelGrid columns="10" cellpadding="5">
+                            <h4 style="text-align: center">Seleccione Categoria</h4>
+
+                            <p:selectOneMenu id="selCategoria" value="#{ingresosController.selectCategoriaIngresos}">
+                                <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
+                                <f:selectItems var="cat" value="#{ingresosController.listaCategoraIngresos}" itemLabel="#{cat.nombreCategoria}" itemValue="#{cat.idCategoriaingresos}" />
+
+                            </p:selectOneMenu>
+                            <h4 style="text-align: center">Seleccione Periodo</h4>
+                            <p:selectOneMenu id="selFecha" value="#{ingresosController.selectIdFechas}">
+                                <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
+                                <f:selectItems var="fecha" value="#{ingresosController.listaControlFechas}" itemLabel="#{fecha.nombreRango}" itemValue="#{fecha.idFechaPrimaria}" />
+
+                            </p:selectOneMenu>
+
+                            <h4 style="text-align: center">Valor de Presupuesto</h4>
+                            <p:inputText id="inputValor"  value= "#{ingresosController.valor}" required="true"> 
+                        <f:validateLength minimum="1" maximum="10"/>
+                    </p:inputText>
+
+
+                            <p:commandButton value="Guardar" update=":formingreso, :formingreso:growlingreso" action="#{ingresosController.crearIngreso()}"  />
+                        </h:panelGrid>
+
+                        <p:dataTable var="tb" value="#{ingresosController.listaIngresos}">
+                            <p:column headerText="id">
+                                <h:outputText value="#{tb.idIngreso}" />
+                            </p:column>
+
+                            <p:column headerText="categoria">
+                                <h:outputText value="#{tb.catIngresos.nombreCategoria}" />
+                            </p:column>
+
+                            <p:column headerText="periodo">
+                                <h:outputText value="#{tb.fechas.nombreRango}" />
+                            </p:column>
+
+                            <p:column headerText="valor">
+                                <h:outputText value="#{tb.valor}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panel>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -45,9 +45,9 @@
                         <f:validateLength minimum="1" maximum="99"/>
                     </p:inputText>
                     <h4>clave</h4>
-                    <p:inputText id="inputClave"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
+                    <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                         <f:validateLength minimum="1" maximum="99"/>
-                    </p:inputText>
+                    </h:inputSecret>
                     
 
                     <p:commandButton value="Guardar"  update=":form2, :form2:growl2"  action="#{indexController.crearUsuario()}" />

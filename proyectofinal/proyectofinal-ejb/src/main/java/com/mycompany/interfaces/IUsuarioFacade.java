@@ -33,4 +33,9 @@ public interface IUsuarioFacade {
 
     DTO_Usuario iniciarSesion(String correo, String clave);
     
+    DTO_Usuario validaCorreo(String correo);
+    
+    DTO_Usuario claveIgual(String clave);
+ 
+    
 }

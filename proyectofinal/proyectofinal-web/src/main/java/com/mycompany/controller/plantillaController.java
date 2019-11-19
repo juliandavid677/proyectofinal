@@ -6,6 +6,7 @@
 package com.mycompany.controller;
 
 import com.mycompany.DTO.DTO_Usuario;
+import com.mycompany.entity.Usuario;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -31,8 +32,8 @@ public class plantillaController implements Serializable{
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             DTO_Usuario us;
-            us = (DTO_Usuario) context.getExternalContext().getSessionMap().get("usuario");
-            
+            us = (DTO_Usuario) context.getExternalContext().getSessionMap().get("usuario");            
+                        
             if(us == null){
                 context.getExternalContext().redirect("../../error.xhtml");
             }

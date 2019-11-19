@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        
+
+        
+
+        <ui:composition template="./../WEB-INF/templates/newTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="formfechas">
+                    <p:growl id="growlfechas1" showDetail="true"></p:growl>
+                    <p:panel id="panelfechas1" style="text-align: center">
+
+                        <h3>Crear nueva categoria de Egresos</h3>
+                        <h:panelGrid columns="10" cellpadding="5">
+                            <h4 style="text-align: center">Descripción</h4>
+                            <p:inputText id="inputPeriodo"  value="#{fechasformController.periodo}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
+                                <f:validateLength minimum="1" maximum="199"/>
+                            </p:inputText>
+                            <h4 style="text-align: center">Fecha Inicio</h4>        
+                            <p:calendar value="#{fechasformController.fechaInicio}" />
+                            <h4 style="text-align: center">Fecha Fin</h4>        
+                            <p:calendar value="#{fechasformController.fechaFin}" />
+
+                            <p:commandButton value="Agregar" update=":formfechas, :formfechas:growlfechas1, :formfechas:cars1" action="#{fechasformController.crearFecha()}"  />
+                        </h:panelGrid>
+                        
+                        <p:dataTable id="cars1" var="car" value="#{fechasformController.listaFechas}" editable="true" style="margin-bottom:20px">
+                            <f:facet name="header">
+                                Tabla
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" update=":formfechas:growlfechas1" listener="#{fechasformController.onRowEdit}"  />
+                            <p:ajax event="rowEditCancel"  listener="#{fechasformController.onRowCancel()}"  />
+
+                            <p:column headerText="Id" rendered="false">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.idFechaPrimaria}" /></f:facet>
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{car.idFechaPrimaria}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Periodo">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.nombreRango}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{car.nombreRango}" style="width:100%" label="Year"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="Nombre Categoria">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.fechaInicio}" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText></f:facet>
+                                    <f:facet name="input"><p:calendar value="#{car.fechaInicio}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="Nombre Categoria">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.fechaFin}" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText></f:facet>
+                                    <f:facet name="input"><p:calendar value="#{car.fechaFin}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            
+
+                            
+                            <p:column style="width:35px">
+                                <p:rowEditor  />
+                            </p:column>
+                            <p:column style="width:35px">
+                                <p:commandButton id="btndel" icon="ui-icon-trash" update=":formfechas, :formfechas:growlfechas1, :formfechas:cars1" immediate="true" action="#{fechasformController.onRowDelete(car)}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panel>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

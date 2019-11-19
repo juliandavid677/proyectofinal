@@ -26,7 +26,28 @@
         </div>
         <div>
             <div id="left">
-                <ui:insert name="left">Left</ui:insert>
+                <ui:insert name="left">
+                    <h:form id="formLeft1">
+                        
+                        <br></br>
+                        <p:link value="Cambiar Contraseña" outcome="/protegido/cambiopass?faces-redirect=true"  /> 
+                        <br></br>
+                        <br></br>
+                        <p:link value="Categorias Ingresos"  outcome="/protegido/categoriaingresos?faces-redirect=true"/>
+                        <br></br>
+                        <br></br>
+                        <p:link value="Categorias Egresos"  outcome="/protegido/categoriaegresos?faces-redirect=true"/>
+                        <br></br><br></br>
+                        <p:link value="Rangos de Fechas"  outcome="/protegido/fechasform?faces-redirect=true"/>
+                        <br></br><br></br>
+                        <p:link value="Ingresos"  outcome="/protegido/ingresos?faces-redirect=true"/>
+                        <br></br><br></br>
+                        <p:link value="Egresos"  outcome="/protegido/egresos?faces-redirect=true"/>
+                        <br></br><br></br>
+                        <p:link value="Ejecutar Egresos"  outcome="/protegido/ejecucion?faces-redirect=true"/>
+                    </h:form>
+
+                </ui:insert>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>

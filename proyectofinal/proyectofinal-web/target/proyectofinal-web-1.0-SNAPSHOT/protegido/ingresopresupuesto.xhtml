@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/newTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form id="forminpresu">
+                    <p:growl id="growlinpresu" showDetail="true"></p:growl>
+                    <p:panel id="panelinpresu" style="text-align: center">
+
+                        <h3>Crear Presupuesto de Ingresos</h3>
+                        <h:panelGrid columns="10" cellpadding="5">
+                            <h4 style="text-align: center">Categoria</h4>
+                            <p:selectOneMenu id="clasesDrop" value="#{inicioControlador.selectEvento}" >
+                                <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
+                                <f:selectItems var="event" value="#{inicioControlador.listEvento}" itemLabel="#{event.nombre_evento}" itemValue="#{event.id_evento}" />
+                                <p:ajax update="@form:estudiante"/>
+
+                            </p:selectOneMenu>
+
+                            <p:commandButton value="Agregar"    />
+                        </h:panelGrid>
+
+
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
