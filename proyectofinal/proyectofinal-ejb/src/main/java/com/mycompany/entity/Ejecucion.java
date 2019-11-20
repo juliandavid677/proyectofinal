@@ -35,13 +35,20 @@ public class Ejecucion implements Serializable{
     @Column(name = "valor")
     private long valor;
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario",nullable = false)
+    private Usuario idUsuario;
+    
     public Ejecucion() {
     }
 
-    public Ejecucion(Egresos egresosE, long valor) {
+    public Ejecucion(Egresos egresosE, long valor, Usuario idUsuario) {
         this.egresosE = egresosE;
         this.valor = valor;
+        this.idUsuario = idUsuario;
     }
+
+    
 
     public int getIdEjecucion() {
         return idEjecucion;
@@ -65,6 +72,14 @@ public class Ejecucion implements Serializable{
 
     public void setValor(long valor) {
         this.valor = valor;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     

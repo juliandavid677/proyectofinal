@@ -7,11 +7,21 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
+    <h:body style="background-color: #656b85">
         Hello from Facelets
+        
         <h:form id="form1">
             <p:growl id="growl1" showDetail="true"></p:growl>
             <p:panel id="panelEstudiante" style="text-align: center">
+
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel for="basic" value="Color Tema" />
+                    <p:themeSwitcher id="basic" style="width:165px">                        
+                        <f:selectItem itemLabel="Elija Tema" itemValue="" />
+                        <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                    </p:themeSwitcher>
+                    
+                </h:panelGrid>
 
                 <h3>Login</h3>
                 <h:panelGrid columns="10" cellpadding="5">
@@ -23,13 +33,13 @@
                     <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                         <f:validateLength minimum="1" maximum="99"/>
                     </h:inputSecret>
-                    
+
 
                     <p:commandButton value="Entrar"  update=":form1, :form1:growl1"  action="#{indexController.iniciarSesion()}" />
                 </h:panelGrid>
             </p:panel>
         </h:form>
-        
+
         <h:form id="form2">
             <p:growl id="growl2" showDetail="true"></p:growl>
             <p:panel id="panelRegistro" style="text-align: center">
@@ -48,7 +58,7 @@
                     <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                         <f:validateLength minimum="1" maximum="99"/>
                     </h:inputSecret>
-                    
+
 
                     <p:commandButton value="Guardar"  update=":form2, :form2:growl2"  action="#{indexController.crearUsuario()}" />
                 </h:panelGrid>

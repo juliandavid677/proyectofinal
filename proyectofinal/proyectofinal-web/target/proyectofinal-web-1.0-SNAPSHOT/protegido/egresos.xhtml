@@ -38,24 +38,53 @@
                     </p:inputText>
 
 
-                            <p:commandButton value="Guardar" update=":formegreso, :formegreso:growlegreso" action="#{egresosController.crearEgreso()}"  />
+                            <p:commandButton value="Guardar" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1" action="#{egresosController.crearEgreso()}"  />
                         </h:panelGrid>
                         
-                        <p:dataTable var="tb" value="#{egresosController.listaEgresos}">
-                            <p:column headerText="id">
-                                <h:outputText value="#{tb.idEgreso}" />
+                        
+                        
+                        <p:dataTable id="cars1" var="car" value="#{egresosController.listaEgresos}" editable="true" style="margin-bottom:20px">
+                            <f:facet name="header">
+                                Tabla
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" update=" :formegreso:growlegreso, :formegreso:cars1" listener="#{egresosController.onRowEdit}"  />
+                            <p:ajax event="rowEditCancel"  listener="#{egresosController.onRowCancel()}"  />
+
+                            <p:column headerText="Id" rendered="false">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.idEgreso}" /></f:facet>
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{car.idEgreso}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="categoria">
-                                <h:outputText value="#{tb.categoriaEgresos.nombreCategoria}" />
+                            <p:column headerText="Nombre Categoria">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.categoriaEgresos.nombreCategoria}" /></f:facet>
+                                    <f:facet name="input"><h:outputText value="#{car.categoriaEgresos.nombreCategoria}" /></f:facet>
+                                </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="periodo">
-                                <h:outputText value="#{tb.fechas.nombreRango}" />
+                            <p:column headerText="Descripción">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
+                                    <f:facet name="input"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="Descripción">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{car.valor}" /></f:facet>
+                                    <f:facet name="input"><p:inputText id="modelvalor" value="#{car.valor}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="valor">
-                                    <h:outputText value="#{tb.valor}" />
+                            
+                            <p:column style="width:35px">
+                                <p:rowEditor  />
+                            </p:column>
+                            <p:column style="width:85px">
+                                <p:commandButton id="btndel" icon="ui-icon-trash" value="eliminar" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1"  action="#{egresosController.onRowDelete(car)}" />
                             </p:column>
                         </p:dataTable>
 

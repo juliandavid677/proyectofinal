@@ -16,15 +16,19 @@ public class DTO_Ejecucion implements Serializable{
     private int idEjecucion;
     private DTO_Egresos egresosE;
     private long valor;
+    private DTO_Usuario idUsuario;
 
     public DTO_Ejecucion() {
     }
 
-    public DTO_Ejecucion(int idEjecucion, DTO_Egresos egresosE, long valor) {
+    public DTO_Ejecucion(int idEjecucion, DTO_Egresos egresosE, long valor, DTO_Usuario idUsuario) {
         this.idEjecucion = idEjecucion;
         this.egresosE = egresosE;
         this.valor = valor;
+        this.idUsuario = idUsuario;
     }
+
+    
 
     public int getIdEjecucion() {
         return idEjecucion;
@@ -48,6 +52,14 @@ public class DTO_Ejecucion implements Serializable{
 
     public void setValor(long valor) {
         this.valor = valor;
+    }
+
+    public DTO_Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(DTO_Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     

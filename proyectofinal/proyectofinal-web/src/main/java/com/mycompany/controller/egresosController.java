@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -111,6 +112,13 @@ public class egresosController implements Serializable{
         listaEgresos = egresosInterface.vermisEgresos(us.getIdUsuario());
     }
     
+    public void verTabla(){
+        DTO_Usuario us;
+        FacesContext context = FacesContext.getCurrentInstance();
+        us = (DTO_Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        listaEgresos = egresosInterface.vermisEgresos(us.getIdUsuario());
+    }
+    
     /**
      * Creates a new instance of egresosController
      */
@@ -127,6 +135,28 @@ public class egresosController implements Serializable{
         egresosConsultas.crearEgreso(us.getIdUsuario(), selectIdFechas, selectCategoriaEgresos, valor);       
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Datos Creados"));
+        verTabla();
+    }
+    
+    public void onRowEdit(RowEditEvent event){
+        DTO_Egresos controldto = (DTO_Egresos) event.getObject();
+        egresosConsultas.editarEgreso(controldto.getIdEgreso(), controldto.getValor());
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
+        "Fecha Modificada"));
+        verTabla();
+    }
+     
+    public void onRowCancel() {
+        verTabla();
+    }
+    
+    public void onRowDelete(DTO_Egresos con){
+        FacesContext context = FacesContext.getCurrentInstance();
+        egresosConsultas.eliminarEgreso(con.getIdEgreso());
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Exito!",
+        "Fecha Eliminada"));
+        verTabla();
     }
             
     

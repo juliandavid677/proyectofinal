@@ -80,8 +80,8 @@
                             <p:column style="width:35px">
                                 <p:rowEditor  />
                             </p:column>
-                            <p:column style="width:35px">
-                                <p:commandButton id="btndel" icon="ui-icon-trash" update=":formfechas, :formfechas:growlfechas1, :formfechas:cars1" immediate="true" action="#{fechasformController.onRowDelete(car)}" />
+                            <p:column style="width:85px">
+                                <p:commandButton id="btndel" icon="ui-icon-trash" value="eliminar" update=":formfechas, :formfechas:growlfechas1, :formfechas:cars1"  action="#{fechasformController.onRowDelete(car)}" />
                             </p:column>
                         </p:dataTable>
 

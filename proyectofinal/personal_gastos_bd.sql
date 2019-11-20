@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2019 a las 06:25:56
+-- Tiempo de generación: 20-11-2019 a las 01:51:02
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 5.6.15
 
@@ -57,7 +57,12 @@ INSERT INTO `categoriaegresos` (`id_categoriaegresos`, `nombre_categoria`, `desc
 (10, 'transporte', 'bus', 6),
 (11, 'Arriendo', 'arriendo de smi', 10),
 (12, 'educacion', 'hijos', 11),
-(13, 'arriendo', 'adaskdjkals', 12);
+(13, 'arriendo', 'adaskdjkals', 12),
+(14, 'Alimentacion', 'para la comidita', 1),
+(15, 'Arriendo', 'casas', 1),
+(16, 'transporte', 'sadjsan', 2),
+(17, 'Diversion', 'sdasvvxc', 2),
+(18, 'transporte', 'sadscas', 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +114,8 @@ CREATE TABLE `egresos` (
 CREATE TABLE `ejecucion` (
   `id_ejecucion` int(11) NOT NULL,
   `id_egreso` int(11) NOT NULL,
-  `valor` bigint(20) NOT NULL
+  `valor` bigint(20) NOT NULL,
+  `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -121,9 +127,9 @@ CREATE TABLE `ejecucion` (
 CREATE TABLE `ingresos` (
   `id_ingreso` int(11) NOT NULL,
   `id_categoriaingreso` int(11) NOT NULL,
-  `id_fecha` int(11) NOT NULL,
   `valor` bigint(20) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) NOT NULL,
+  `id_fecha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -185,16 +191,17 @@ ALTER TABLE `egresos`
 --
 ALTER TABLE `ejecucion`
   ADD PRIMARY KEY (`id_ejecucion`),
-  ADD KEY `id_egreso` (`id_egreso`);
+  ADD KEY `id_egreso` (`id_egreso`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
   ADD PRIMARY KEY (`id_ingreso`),
-  ADD UNIQUE KEY `id_fecha` (`id_fecha`),
   ADD KEY `id_categoriaingreso` (`id_categoriaingreso`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_fecha` (`id_fecha`);
 
 --
 -- Indices de la tabla `usuario`
@@ -210,42 +217,42 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `categoriaegresos`
 --
 ALTER TABLE `categoriaegresos`
-  MODIFY `id_categoriaegresos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_categoriaegresos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `categoriaingresos`
 --
 ALTER TABLE `categoriaingresos`
-  MODIFY `id_categoriaingresos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_categoriaingresos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `controlfechas`
 --
 ALTER TABLE `controlfechas`
-  MODIFY `id_fecha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_fecha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `egresos`
 --
 ALTER TABLE `egresos`
-  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `ejecucion`
 --
 ALTER TABLE `ejecucion`
-  MODIFY `id_ejecucion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ejecucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `id_ingreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ingreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
@@ -280,15 +287,16 @@ ALTER TABLE `egresos`
 -- Filtros para la tabla `ejecucion`
 --
 ALTER TABLE `ejecucion`
-  ADD CONSTRAINT `ejecucion_ibfk_1` FOREIGN KEY (`id_egreso`) REFERENCES `egresos` (`id_egreso`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ejecucion_ibfk_1` FOREIGN KEY (`id_egreso`) REFERENCES `egresos` (`id_egreso`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecucion_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
   ADD CONSTRAINT `ingresos_ibfk_1` FOREIGN KEY (`id_categoriaingreso`) REFERENCES `categoriaingresos` (`id_categoriaingresos`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ingresos_ibfk_2` FOREIGN KEY (`id_fecha`) REFERENCES `controlfechas` (`id_fecha`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ingresos_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ingresos_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ingresos_ibfk_4` FOREIGN KEY (`id_fecha`) REFERENCES `controlfechas` (`id_fecha`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

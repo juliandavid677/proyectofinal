@@ -1,14 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../WEB-INF/templates/newTemplate.xhtml">
 
             <ui:define name="content">
-                content
+                
+                <h:form id="formejecucion">
+                    <p:growl id="growlejecucion" showDetail="true"></p:growl>
+                    <p:panel id="panelejecucion" style="text-align: center">
+
+                        <h3>Ejecutar Egreso</h3>
+                        <h:panelGrid columns="10" cellpadding="5">
+                            
+
+                            
+                            <h4 style="text-align: center">Seleccione Egreso</h4>
+                            <p:selectOneMenu id="selFecha" value="#{ejecucionController.selectEgreso}">
+                                <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
+                                <f:selectItems var="egre" value="#{ejecucionController.listaEgresos}" itemLabel="#{egre.categoriaEgresos.nombreCategoria}" itemValue="#{egre.idEgreso}" />
+
+                            </p:selectOneMenu>
+
+                            <h4 style="text-align: center">Valor Ejecutado</h4>
+                            <p:inputText id="inputValor"  value= "#{ejecucionController.valor}" required="true"> 
+                        <f:validateLength minimum="1" maximum="10"/>
+                    </p:inputText>
+
+
+                            <p:commandButton value="Guardar" action="#{ejecucionController.crearEjecucion()}"   />
+                        </h:panelGrid>
+                        
+                        
+
+
+                    </p:panel>
+                </h:form>
+                
             </ui:define>
 
         </ui:composition>

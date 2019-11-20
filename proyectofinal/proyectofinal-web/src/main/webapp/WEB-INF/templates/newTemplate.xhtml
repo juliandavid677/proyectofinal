@@ -14,42 +14,52 @@
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion()}" />
     </h:head>
 
-    <h:body>
+    <h:body style="background-color: #656b85">
 
 
-        <div id="top" class="top">
+        <div id="top" class="top" style="background-color: #43895f">
             <ui:insert name="top">
                 <h:form id="form1">
-                    <p:commandButton value="Cerrar Sesión" actionListener="#{plantillaController.cerrarSesion()}" action="/login?faces-redirect=true"/>
+                    <div>
+                    <div style="text-align: center">
+                        <p:themeSwitcher id="basic" style="width:165px">                        
+                        <f:selectItem itemLabel="Cambiar Tema" itemValue="" />
+                        <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                    </p:themeSwitcher>
+                    </div>
+                    <div style="text-align: right">                        
+                        <p:commandButton value="Cerrar Sesión" actionListener="#{plantillaController.cerrarSesion()}" action="/login?faces-redirect=true"/>
+                    </div>
+                    </div>
                 </h:form>
             </ui:insert>
         </div>
         <div>
-            <div id="left">
+            <div id="left" style="background-color: #c1e0e3">
                 <ui:insert name="left">
                     <h:form id="formLeft1">
                         
                         <br></br>
-                        <p:link value="Cambiar Contraseña" outcome="/protegido/cambiopass?faces-redirect=true"  /> 
+                        <p:link style="color: black; text-align: justify" value="Cambiar Contraseña" outcome="/protegido/cambiopass?faces-redirect=true"  /> 
                         <br></br>
                         <br></br>
-                        <p:link value="Categorias Ingresos"  outcome="/protegido/categoriaingresos?faces-redirect=true"/>
+                        <p:link style="color: black" value="Categorias Ingresos"  outcome="/protegido/categoriaingresos?faces-redirect=true"/>
                         <br></br>
                         <br></br>
-                        <p:link value="Categorias Egresos"  outcome="/protegido/categoriaegresos?faces-redirect=true"/>
+                        <p:link style="color: black" value="Categorias Egresos"  outcome="/protegido/categoriaegresos?faces-redirect=true"/>
                         <br></br><br></br>
-                        <p:link value="Rangos de Fechas"  outcome="/protegido/fechasform?faces-redirect=true"/>
+                        <p:link style="color: black" value="Rangos de Fechas"  outcome="/protegido/fechasform?faces-redirect=true"/>
                         <br></br><br></br>
-                        <p:link value="Ingresos"  outcome="/protegido/ingresos?faces-redirect=true"/>
+                        <p:link style="color: black" value="Ingresos"  outcome="/protegido/ingresos?faces-redirect=true"/>
                         <br></br><br></br>
-                        <p:link value="Egresos"  outcome="/protegido/egresos?faces-redirect=true"/>
+                        <p:link style="color: black" value="Egresos"  outcome="/protegido/egresos?faces-redirect=true"/>
                         <br></br><br></br>
-                        <p:link value="Ejecutar Egresos"  outcome="/protegido/ejecucion?faces-redirect=true"/>
+                        <p:link style="color: black" value="Ejecutar Egresos"  outcome="/protegido/ejecucion?faces-redirect=true"/>
                     </h:form>
 
                 </ui:insert>
             </div>
-            <div id="content" class="left_content">
+            <div id="content" class="left_content" >
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>

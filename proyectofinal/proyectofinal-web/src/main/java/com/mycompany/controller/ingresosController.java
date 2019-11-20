@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -110,6 +111,14 @@ public class ingresosController implements Serializable{
         listaControlFechas = fechasInterface.vermisFechas(us.getIdUsuario());
         listaIngresos = ingresoInterface.vermisIngresos(us.getIdUsuario());
     }
+    
+    public void verTabla(){
+        DTO_Usuario us;
+        FacesContext context = FacesContext.getCurrentInstance();
+        us = (DTO_Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        listaIngresos = ingresoInterface.vermisIngresos(us.getIdUsuario());
+    }
+            
     /**
      * Creates a new instance of ingresosController
      */
@@ -126,6 +135,27 @@ public class ingresosController implements Serializable{
         ingresoConsultas.crearIngreso(us.getIdUsuario(), selectIdFechas, selectCategoriaIngresos, valor);        
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Datos Creados"));
+        verTabla();
     }
     
+    public void onRowEdit(RowEditEvent event){
+        DTO_Ingresos controldto = (DTO_Ingresos) event.getObject();
+        ingresoConsultas.editarIngreso(controldto.getIdIngreso(), controldto.getValor());
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
+        "Fecha Modificada"));
+        verTabla();
+    }
+     
+    public void onRowCancel() {
+        verTabla();
+    }
+    
+    public void onRowDelete(DTO_Ingresos con){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ingresoConsultas.eliminarIngreso(con.getIdIngreso());
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Exito!",
+        "Fecha Eliminada"));
+        verTabla();
+    }
 }
