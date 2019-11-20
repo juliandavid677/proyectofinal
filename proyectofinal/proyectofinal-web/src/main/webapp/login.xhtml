@@ -5,65 +5,80 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
     </h:head>
-    <h:body style="background-color: #656b85">
-        Hello from Facelets
-        
-        <h:form id="form1">
-            <p:growl id="growl1" showDetail="true"></p:growl>
-            <p:panel id="panelEstudiante" style="text-align: center">
+    <h:body style="background: url('https://www.xtrafondos.com/wallpapers/iron-man-endgame-2991.jpg')">
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:outputLabel for="basic" value="Color Tema" />
-                    <p:themeSwitcher id="basic" style="width:165px">                        
-                        <f:selectItem itemLabel="Elija Tema" itemValue="" />
-                        <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
-                    </p:themeSwitcher>
-                    
-                </h:panelGrid>
+        <div style="position:absolute; top:120px; left:500px;width: 340px;">
+            <h:form id="formevent">
+                <h:selectOneMenu value="#{usuarioBean.localidad}"
+                                 onchange="submit()"
+                                 valueChangeListener="#{usuarioBean.localidadChanged}">
+                    <f:selectItems value="#{usuarioBean.lstPaises}"/>
+                </h:selectOneMenu>
+            </h:form>
+            <h:form id="form1">
+                <p:growl id="growl1" showDetail="true"></p:growl>
+                <p:panel id="panelEstudiante" style="text-align: center">
 
-                <h3>Login</h3>
-                <h:panelGrid columns="10" cellpadding="5">
-                    <h4 style="text-align: center">Correo</h4>
+                    <h:panelGrid columns="2" cellpadding="10">
+
+
+                        <p:separator />
+                        <p:themeSwitcher id="basic" style="width:165px">                        
+                            <f:selectItem itemLabel="Cambiar Tema" itemValue="" />
+                            <f:selectItems value="#{themeSwitcherView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                        </p:themeSwitcher>
+
+
+                    </h:panelGrid>
+
+                    <h1>#{msg.txt_tituloLogin}</h1>
+
+                    <h4 style="text-align: center">#{msg.txt_correoLogin}</h4>
                     <p:inputText id="inputEmail"  value="#{indexController.correo}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                         <f:validateLength minimum="1" maximum="99"/>
                     </p:inputText>
-                    <h4>Contraseña</h4>
+                    <br></br>
+                    <h4>#{msg.txt_claveLogin}</h4>
                     <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                         <f:validateLength minimum="1" maximum="99"/>
                     </h:inputSecret>
 
+                    <br></br><br></br>
+                    <p:commandButton value="#{msg.btn_entrarLogin}"  update=":form1, :form1:growl1"  action="#{indexController.iniciarSesion()}" />
+                    <br></br>
+                    <br></br>
+                    <p:commandButton style="width:140px; height35px" value="#{msg.btn_crearCuenta}" onclick="PF('wdialogo').show();" />
+                </p:panel>
+            </h:form>
+            <p:dialog id="dialogo" widgetVar="wdialogo" header="Crear Nueva Categoria" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                <h:form id="form2">
+                    <p:growl id="growl2" showDetail="true"></p:growl>
+                    <p:panel id="panelRegistro" style="text-align: center">
 
-                    <p:commandButton value="Entrar"  update=":form1, :form1:growl1"  action="#{indexController.iniciarSesion()}" />
-                </h:panelGrid>
-            </p:panel>
-        </h:form>
-
-        <h:form id="form2">
-            <p:growl id="growl2" showDetail="true"></p:growl>
-            <p:panel id="panelRegistro" style="text-align: center">
-
-                <h3>Crear Usuario</h3>
-                <h:panelGrid columns="10" cellpadding="5">
-                    <h4 style="text-align: center">nombre</h4>
-                    <p:inputText id="inputnombreR"  value="#{indexController.nombre}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
-                        <f:validateLength minimum="1" maximum="99"/>
-                    </p:inputText>
-                    <h4 style="text-align: center">correo</h4>
-                    <p:inputText id="inputCorreo"  value="#{indexController.correo}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
-                        <f:validateLength minimum="1" maximum="99"/>
-                    </p:inputText>
-                    <h4>clave</h4>
-                    <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
-                        <f:validateLength minimum="1" maximum="99"/>
-                    </h:inputSecret>
+                        <h3>Crear Usuario</h3>
+                        <h:panelGrid columns="10" cellpadding="5">
+                            <h4 style="text-align: center">nombre</h4>
+                            <p:inputText id="inputnombreR"  value="#{indexController.nombre}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
+                                <f:validateLength minimum="1" maximum="99"/>
+                            </p:inputText>
+                            <h4 style="text-align: center">correo</h4>
+                            <p:inputText id="inputCorreo"  value="#{indexController.correo}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
+                                <f:validateLength minimum="1" maximum="99"/>
+                            </p:inputText>
+                            <h4>clave</h4>
+                            <h:inputSecret id="inputpass"  value="#{indexController.clave}" required="true" validatorMessage="Nombre: El dato ingresado no es un caracter valido">
+                                <f:validateLength minimum="1" maximum="99"/>
+                            </h:inputSecret>
 
 
-                    <p:commandButton value="Guardar"  update=":form2, :form2:growl2"  action="#{indexController.crearUsuario()}" />
-                </h:panelGrid>
-            </p:panel>
-        </h:form>
+                            <p:commandButton value="Guardar"  update=":form2, :form2:growl2"  action="#{indexController.crearUsuario()}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
+        </div>
     </h:body>
 </html>
 

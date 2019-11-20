@@ -96,6 +96,9 @@ public class fechasformController implements Serializable{
         consultafechas.crearFecha(periodo, fechaInicio, fechaFin, us.getIdUsuario());
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Fecha Creada"));
+        this.periodo = null;
+        this.fechaInicio = null;
+        this.fechaFin = null;
         verTabla();
     }
     

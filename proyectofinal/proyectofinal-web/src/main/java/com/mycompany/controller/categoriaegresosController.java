@@ -76,6 +76,8 @@ public class categoriaegresosController implements Serializable{
         categreConsultas.crearCategoriaEgresos(nombreCategoria, descripcionCategoria, us.getIdUsuario());                
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Categoria Creada"));
+        this.nombreCategoria = null;
+        this.descripcionCategoria = null;
         verTabla();
     }
     

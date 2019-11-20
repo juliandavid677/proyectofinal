@@ -80,6 +80,8 @@ public class indexController implements Serializable{
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
                     "Usuario Creado"));
+            this.nombre = null;
+            this.correo = null;
         }
         else{
             FacesContext context = FacesContext.getCurrentInstance();

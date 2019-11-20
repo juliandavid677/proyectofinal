@@ -135,6 +135,9 @@ public class egresosController implements Serializable{
         egresosConsultas.crearEgreso(us.getIdUsuario(), selectIdFechas, selectCategoriaEgresos, valor);       
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Datos Creados"));
+        this.selectCategoriaEgresos = 0;
+        this.selectIdFechas = 0;
+        this.valor = 0;
         verTabla();
     }
     

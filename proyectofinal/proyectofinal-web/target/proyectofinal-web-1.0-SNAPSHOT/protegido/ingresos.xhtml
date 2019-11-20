@@ -15,37 +15,42 @@
                 <h:form id="formingreso">
                     <p:growl id="growlingreso" showDetail="true"></p:growl>
                     <p:panel id="panelingreso" style="text-align: center">
-
-                        <h3>Crear nuevo Ingreso</h3>
+                        <div style="height: 50px">
+                            <h2 style="text-align: center">#{msg.txt_titulogestioningresos}</h2>
+                        </div>
+                        <p:commandButton  value="#{msg.btn_crearing}"  onclick="PF('wdialogo').show();" />
+                        <br></br><br></br>
+                        <p:dialog id="dialogo" widgetVar="wdialogo" header="#{msg.txt_crearingreso}" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                        <h3>#{msg.txt_crearingreso}</h3>
                         <h:panelGrid columns="10" cellpadding="5">
-                            <h4 style="text-align: center">Seleccione Categoria</h4>
+                            <h4 style="text-align: center">#{msg.txt_nomcat}</h4>
 
                             <p:selectOneMenu id="selCategoria" value="#{ingresosController.selectCategoriaIngresos}">
                                 <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
                                 <f:selectItems var="cat" value="#{ingresosController.listaCategoraIngresos}" itemLabel="#{cat.nombreCategoria}" itemValue="#{cat.idCategoriaingresos}" />
 
                             </p:selectOneMenu>
-                            <h4 style="text-align: center">Seleccione Periodo</h4>
+                            <h4 style="text-align: center">#{msg.txt_periodo}</h4>
                             <p:selectOneMenu id="selFecha" value="#{ingresosController.selectIdFechas}">
                                 <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
                                 <f:selectItems var="fecha" value="#{ingresosController.listaControlFechas}" itemLabel="#{fecha.nombreRango}" itemValue="#{fecha.idFechaPrimaria}" />
 
                             </p:selectOneMenu>
 
-                            <h4 style="text-align: center">Valor de Presupuesto</h4>
+                            <h4 style="text-align: center">#{msg.txt_valor}</h4>
                             <p:inputText id="inputValor"  value= "#{ingresosController.valor}" required="true"> 
                         <f:validateLength minimum="1" maximum="10"/>
                     </p:inputText>
 
 
-                            <p:commandButton value="Guardar" update=":formingreso, :formingreso:growlingreso, :formingreso:cars1" action="#{ingresosController.crearIngreso()}"  />
+                            <p:commandButton value="#{msg.btn_guardarcatingre}" update=":formingreso, :formingreso:growlingreso, :formingreso:cars1" action="#{ingresosController.crearIngreso()}"  />
                         </h:panelGrid>
 
-                        
+                        </p:dialog>
                         
                         <p:dataTable id="cars1" var="car" value="#{ingresosController.listaIngresos}" editable="true" style="margin-bottom:20px">
                             <f:facet name="header">
-                                Tabla
+                                #{msg.txt_tablaingreso}
                             </f:facet>
 
                             <p:ajax event="rowEdit" update=":formingreso:growlingreso, :formingreso:cars1" listener="#{ingresosController.onRowEdit}"  />
@@ -58,21 +63,21 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Nombre Categoria">
+                            <p:column headerText="#{msg.txt_nomcat}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.catIngresos.nombreCategoria}" /></f:facet>
                                     <f:facet name="input"><h:outputText value="#{car.catIngresos.nombreCategoria}" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Descripción">
+                            <p:column headerText="#{msg.txt_periodo}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
                                     <f:facet name="input"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="Descripción">
+                            <p:column headerText="#{msg.txt_valor}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.valor}" /></f:facet>
                                     <f:facet name="input"><p:inputText id="modelvalor" value="#{car.valor}" style="width:100%"/></f:facet>
@@ -84,7 +89,7 @@
                                 <p:rowEditor  />
                             </p:column>
                             <p:column style="width:85px">
-                                <p:commandButton id="btndel" icon="ui-icon-trash" value="eliminar" update=":formingreso:growlingreso, :formingreso:cars1"  action="#{ingresosController.onRowDelete(car)}" />
+                                <p:commandButton id="btndel" icon="ui-icon-trash" value="#{msg.txt_btneliminar}" update=":formingreso:growlingreso, :formingreso:cars1"  action="#{ingresosController.onRowDelete(car)}" />
                             </p:column>
                         </p:dataTable>
                         

@@ -135,6 +135,9 @@ public class ingresosController implements Serializable{
         ingresoConsultas.crearIngreso(us.getIdUsuario(), selectIdFechas, selectCategoriaIngresos, valor);        
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Datos Creados"));
+        this.selectCategoriaIngresos = 0;
+        this.selectIdFechas = 0;
+        this.valor = 0;
         verTabla();
     }
     

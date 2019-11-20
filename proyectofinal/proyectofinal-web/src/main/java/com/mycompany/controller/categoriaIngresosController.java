@@ -68,10 +68,12 @@ public class categoriaIngresosController implements Serializable{
         DTO_Usuario us;
         FacesContext context = FacesContext.getCurrentInstance();
         us = (DTO_Usuario) context.getExternalContext().getSessionMap().get("usuario");
-        catIngCon.crearCategoriaIngresos(nombreCategoria, nombreCategoria, us.getIdUsuario());
+        catIngCon.crearCategoriaIngresos(nombreCategoria, descripcionCategoria, us.getIdUsuario());
                 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito!",
         "Categoria Creada"));
+        this.nombreCategoria = null;
+        this.descripcionCategoria = null;                
         verTabla();
     }
     

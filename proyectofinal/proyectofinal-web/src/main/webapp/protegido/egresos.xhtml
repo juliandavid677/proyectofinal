@@ -15,37 +15,42 @@
                 <h:form id="formegreso">
                     <p:growl id="growlegreso" showDetail="true"></p:growl>
                     <p:panel id="panelegreso" style="text-align: center">
-
-                        <h3>Crear nuevo Egreso</h3>
+                        <div style="height: 50px">
+                            <h2 style="text-align: center">#{msg.txt_titulogestionegresos}</h2>
+                        </div>
+                        <p:commandButton  value="#{msg.btn_crearegr}"  onclick="PF('wdialogo').show();" />
+                        <br></br><br></br>
+                        <p:dialog id="dialogo" widgetVar="wdialogo" header="#{msg.txt_crearegreso}" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                        <h3>#{msg.txt_crearegreso}</h3>
                         <h:panelGrid columns="10" cellpadding="5">
-                            <h4 style="text-align: center">Seleccione Categoria</h4>
+                            <h4 style="text-align: center">#{msg.txt_nomcat}</h4>
 
                             <p:selectOneMenu id="selCategoria" value="#{egresosController.selectCategoriaEgresos}">
                                 <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
                                 <f:selectItems var="cat" value="#{egresosController.listaCategoraEgresos}" itemLabel="#{cat.nombreCategoria}" itemValue="#{cat.idCategoriaegresos}" />
 
                             </p:selectOneMenu>
-                            <h4 style="text-align: center">Seleccione Periodo</h4>
+                            <h4 style="text-align: center">#{msg.txt_periodo}</h4>
                             <p:selectOneMenu id="selFecha" value="#{egresosController.selectIdFechas}">
                                 <f:selectItem itemLabel="--Seleccione--" itemValue="0" />
                                 <f:selectItems var="fecha" value="#{egresosController.listaControlFechas}" itemLabel="#{fecha.nombreRango}" itemValue="#{fecha.idFechaPrimaria}" />
 
                             </p:selectOneMenu>
 
-                            <h4 style="text-align: center">Valor de Presupuesto</h4>
+                            <h4 style="text-align: center">#{msg.txt_valor}</h4>
                             <p:inputText id="inputValor"  value= "#{egresosController.valor}" required="true"> 
                         <f:validateLength minimum="1" maximum="10"/>
                     </p:inputText>
 
 
-                            <p:commandButton value="Guardar" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1" action="#{egresosController.crearEgreso()}"  />
+                            <p:commandButton value="#{msg.btn_guardarcatingre}" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1" action="#{egresosController.crearEgreso()}"  />
                         </h:panelGrid>
                         
-                        
+                        </p:dialog>
                         
                         <p:dataTable id="cars1" var="car" value="#{egresosController.listaEgresos}" editable="true" style="margin-bottom:20px">
                             <f:facet name="header">
-                                Tabla
+                                #{msg.txt_tablaegreso}
                             </f:facet>
 
                             <p:ajax event="rowEdit" update=" :formegreso:growlegreso, :formegreso:cars1" listener="#{egresosController.onRowEdit}"  />
@@ -58,21 +63,21 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Nombre Categoria">
+                            <p:column headerText="#{msg.txt_nomcat}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.categoriaEgresos.nombreCategoria}" /></f:facet>
                                     <f:facet name="input"><h:outputText value="#{car.categoriaEgresos.nombreCategoria}" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Descripción">
+                            <p:column headerText="#{msg.txt_periodo}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
                                     <f:facet name="input"><h:outputText value="#{car.fechas.nombreRango}" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="Descripción">
+                            <p:column headerText="#{msg.txt_valor}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.valor}" /></f:facet>
                                     <f:facet name="input"><p:inputText id="modelvalor" value="#{car.valor}" style="width:100%"/></f:facet>
@@ -84,7 +89,7 @@
                                 <p:rowEditor  />
                             </p:column>
                             <p:column style="width:85px">
-                                <p:commandButton id="btndel" icon="ui-icon-trash" value="eliminar" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1"  action="#{egresosController.onRowDelete(car)}" />
+                                <p:commandButton id="btndel" icon="ui-icon-trash" value="#{msg.txt_btneliminar}" update=":formegreso, :formegreso:growlegreso, :formegreso:cars1"  action="#{egresosController.onRowDelete(car)}" />
                             </p:column>
                         </p:dataTable>
 

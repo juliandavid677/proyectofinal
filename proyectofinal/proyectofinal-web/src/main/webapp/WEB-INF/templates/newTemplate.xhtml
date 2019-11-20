@@ -10,15 +10,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>  
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Administrar</title>
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion()}" />
     </h:head>
 
-    <h:body style="background-color: #656b85">
+    <h:body style="background: url('https://www.xtrafondos.com/wallpapers/iron-man-endgame-2991.jpg')">
 
 
-        <div id="top" class="top" style="background-color: #43895f">
+        <div id="top" class="top" style="background-color: black">
             <ui:insert name="top">
+                <h:form id="formevent">
+                <h:selectOneMenu value="#{usuarioBean.localidad}"
+                                 onchange="submit()"
+                                 valueChangeListener="#{usuarioBean.localidadChanged}">
+                    
+                    <f:selectItems value="#{usuarioBean.lstPaises}"/>
+                </h:selectOneMenu>
+            </h:form>
                 <h:form id="form1">
                     <div>
                     <div style="text-align: center">
@@ -28,7 +36,7 @@
                     </p:themeSwitcher>
                     </div>
                     <div style="text-align: right">                        
-                        <p:commandButton value="Cerrar Sesión" actionListener="#{plantillaController.cerrarSesion()}" action="/login?faces-redirect=true"/>
+                        <p:commandButton value="#{msg.btn_cerrar}" actionListener="#{plantillaController.cerrarSesion()}" action="/login?faces-redirect=true"/>
                     </div>
                     </div>
                 </h:form>

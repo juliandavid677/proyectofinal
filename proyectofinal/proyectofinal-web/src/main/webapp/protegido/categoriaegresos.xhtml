@@ -15,28 +15,33 @@
                 <h:form id="formcating1">
                     <p:growl id="growlcaling1" showDetail="true"></p:growl>
                     <p:panel id="panelcating1" style="text-align: center">
-
-                        <h3>Crear nueva categoria de Egresos</h3>
+                        <div style="height: 50px">
+                            <h2 style="text-align: center">#{msg.txt_titulocategre}</h2>
+                        </div>
+                        <p:commandButton  value="#{msg.btn_crearCuenta}"  onclick="PF('wdialogo').show();" />
+                        <br></br><br></br>
+                        <p:dialog id="dialogo" widgetVar="wdialogo" header="#{msg.txt_titulocrearcat}" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                        <h3>#{msg.txt_titulocrearcat}</h3>
                         <h:panelGrid columns="10" cellpadding="5">
-                            <h4 style="text-align: center">Nombre Categoria</h4>
+                            <h4 style="text-align: center">#{msg.txt_nomcat}</h4>
 
                             <p:inputText id="inputnewcategoria"  value="#{categoriaegresosController.nombreCategoria}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                                 <f:validateLength minimum="1" maximum="99"/>
                             </p:inputText>
-                            <h4 style="text-align: center">Descripción</h4>
+                            <h4 style="text-align: center">#{msg.txt_descat}</h4>
                             <p:inputText id="inputdesccategoria"  value="#{categoriaegresosController.descripcionCategoria}" required="true"  validatorMessage="Nombre: El dato ingresado no es un caracter valido">
                                 <f:validateLength minimum="1" maximum="199"/>
                             </p:inputText>
 
 
-                            <p:commandButton value="Cambiar" update=":formcating1, :formcating1:growlcaling1, :formcating1:cars1" action="#{categoriaegresosController.crearCategoria()}"  />
+                            <p:commandButton value="#{msg.btn_guardarcatingre}" update=":formcating1, :formcating1:growlcaling1, :formcating1:cars1" action="#{categoriaegresosController.crearCategoria()}"  />
                         </h:panelGrid>
-
+                        </p:dialog>
                         
 
                         <p:dataTable id="cars1" var="car" value="#{categoriaegresosController.listaEgresos}" editable="true" style="margin-bottom:20px">
                             <f:facet name="header">
-                                Tabla
+                                #{msg.txt_tablacating}
                             </f:facet>
 
                             <p:ajax event="rowEdit" update=":formcating1:growlcaling1, :formcating1:cars1" listener="#{categoriaegresosController.onRowEdit}"  />
@@ -49,14 +54,14 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Nombre Categoria">
+                            <p:column headerText="#{msg.txt_nomcat}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.nombreCategoria}" /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{car.nombreCategoria}" style="width:100%" label="Year"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Descripción">
+                            <p:column headerText="#{msg.txt_descat}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{car.descripcionCategoria}" /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{car.descripcionCategoria}" style="width:100%" label="Year"/></f:facet>
@@ -68,7 +73,7 @@
                                 <p:rowEditor  />
                             </p:column>
                             <p:column style="width:85px">
-                                <p:commandButton id="btndel" icon="ui-icon-trash" value="eliminar" update=":formcating1,:formcating1:growlcaling1, :formcating1:cars1 " action="#{categoriaegresosController.onRowDelete(car)}" />
+                                <p:commandButton id="btndel" icon="ui-icon-trash" value="#{msg.txt_btneliminar}" update=":formcating1,:formcating1:growlcaling1, :formcating1:cars1 " action="#{categoriaegresosController.onRowDelete(car)}" />
                             </p:column>
                         </p:dataTable>
 
